@@ -52,7 +52,7 @@ namespace SpinnerPlugin.View
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            SetDefaultValues(30, 50, 30, 75, 86.25);
+            SetDefaultValues(60, 20, 40, 150, 172.5);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace SpinnerPlugin.View
             }
             else if (textBoxDiameter.Text.Length < 30 || textBoxDiameter.Text.Length > 100)
             {
-                errorProvider.SetError(textBoxDiameter, "Некоректное число");
+                errorProvider.SetError(textBoxDiameter, "The value must be between 30 and 100");
 
             }
             else
