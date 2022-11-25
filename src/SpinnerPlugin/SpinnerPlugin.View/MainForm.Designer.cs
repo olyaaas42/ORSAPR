@@ -79,7 +79,7 @@ namespace SpinnerPlugin.View
             this.splitContainerSpinnerPlugin.Panel2.Controls.Add(this.panel1);
             this.splitContainerSpinnerPlugin.Panel2.Controls.Add(this.buttonBuild);
             this.splitContainerSpinnerPlugin.Size = new System.Drawing.Size(936, 601);
-            this.splitContainerSpinnerPlugin.SplitterDistance = 278;
+            this.splitContainerSpinnerPlugin.SplitterDistance = 262;
             this.splitContainerSpinnerPlugin.TabIndex = 0;
             // 
             // groupBoxDefaultParameters
@@ -89,7 +89,7 @@ namespace SpinnerPlugin.View
             this.groupBoxDefaultParameters.Controls.Add(this.buttonMimimum);
             this.groupBoxDefaultParameters.Location = new System.Drawing.Point(3, 426);
             this.groupBoxDefaultParameters.Name = "groupBoxDefaultParameters";
-            this.groupBoxDefaultParameters.Size = new System.Drawing.Size(271, 163);
+            this.groupBoxDefaultParameters.Size = new System.Drawing.Size(255, 172);
             this.groupBoxDefaultParameters.TabIndex = 1;
             this.groupBoxDefaultParameters.TabStop = false;
             this.groupBoxDefaultParameters.Text = "Default parameters";
@@ -140,7 +140,7 @@ namespace SpinnerPlugin.View
             this.groupBoxSpinnerParameters.Controls.Add(this.labelDiameter);
             this.groupBoxSpinnerParameters.Location = new System.Drawing.Point(3, 3);
             this.groupBoxSpinnerParameters.Name = "groupBoxSpinnerParameters";
-            this.groupBoxSpinnerParameters.Size = new System.Drawing.Size(271, 417);
+            this.groupBoxSpinnerParameters.Size = new System.Drawing.Size(255, 417);
             this.groupBoxSpinnerParameters.TabIndex = 0;
             this.groupBoxSpinnerParameters.TabStop = false;
             this.groupBoxSpinnerParameters.Text = "Spinner Parameters";
