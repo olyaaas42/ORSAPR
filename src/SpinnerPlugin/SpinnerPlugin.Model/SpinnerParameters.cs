@@ -21,8 +21,8 @@ namespace SpinnerPlugin.Model
             _parameters = new Dictionary<SpinnerParametersType, SpinnerParameter>()
             {
                 { SpinnerParametersType.Diameter, new SpinnerParameter(65, 30, 100) },
-                { SpinnerParametersType.Radius, new SpinnerParameter(30, 10, 50) },
-                { SpinnerParametersType.Thickness, new SpinnerParameter(40, 20, 60) },
+                { SpinnerParametersType.Thickness, new SpinnerParameter(30, 10, 50) },
+                { SpinnerParametersType.Radius, new SpinnerParameter(40, 20, 60) },
                 { SpinnerParametersType.Length, new SpinnerParameter(162.5, 75, 250) },
                 { SpinnerParametersType.Width, new SpinnerParameter(186.875, 86.25, 287.5) },
             };

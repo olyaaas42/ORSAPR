@@ -23,7 +23,7 @@ namespace SpinnerPlugin.Model
             {
                 if (IsRangeOut(value))
                 {
-                    ///throw new ArgumentException($"Value must be between {_minValue} and {_maxValue}");
+                    throw new ArgumentException($"Value must be between {_minValue} and {_maxValue}");
                 }
                 _value = value;
             }
