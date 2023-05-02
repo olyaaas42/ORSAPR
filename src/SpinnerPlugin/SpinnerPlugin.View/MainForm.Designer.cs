@@ -262,9 +262,9 @@ namespace SpinnerPlugin.View
             this.labelInnerRings.AutoSize = true;
             this.labelInnerRings.Location = new System.Drawing.Point(2, 23);
             this.labelInnerRings.Name = "labelInnerRings";
-            this.labelInnerRings.Size = new System.Drawing.Size(149, 17);
+            this.labelInnerRings.Size = new System.Drawing.Size(152, 17);
             this.labelInnerRings.TabIndex = 4;
-            this.labelInnerRings.Text = "Dianeter inner rings - I";
+            this.labelInnerRings.Text = "Diameter inner rings - I";
             // 
             // groupBoxDefaultParameters
             // 

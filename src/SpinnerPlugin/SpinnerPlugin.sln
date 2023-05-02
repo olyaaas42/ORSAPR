@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpinnerPlugin.Wrapper", "Sp
 		{2627155E-65D7-429D-9227-98A520DAB299} = {2627155E-65D7-429D-9227-98A520DAB299}
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpinnerPlugin.UnitTests", "SpinnerPlugin.UnitTests\SpinnerPlugin.UnitTests.csproj", "{7748A0B8-F1E5-4D93-94D3-F22B4D29FEBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpinnerPlugin.StressTest", "SpinnerPlugin.StressTest\SpinnerPlugin.StressTest.csproj", "{CA9DF581-72FD-444A-B506-8F4E010DDA3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,14 @@ Global
 		{69C5EEDE-5087-4FC6-9B61-D23F5B476709}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C5EEDE-5087-4FC6-9B61-D23F5B476709}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C5EEDE-5087-4FC6-9B61-D23F5B476709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7748A0B8-F1E5-4D93-94D3-F22B4D29FEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7748A0B8-F1E5-4D93-94D3-F22B4D29FEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7748A0B8-F1E5-4D93-94D3-F22B4D29FEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7748A0B8-F1E5-4D93-94D3-F22B4D29FEBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA9DF581-72FD-444A-B506-8F4E010DDA3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9DF581-72FD-444A-B506-8F4E010DDA3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9DF581-72FD-444A-B506-8F4E010DDA3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9DF581-72FD-444A-B506-8F4E010DDA3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
