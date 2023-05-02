@@ -18,25 +18,38 @@ namespace SpinnerPlugin.Model
         /// </summary>
         public SpinnerParameters()
         {
+            var avgDependentValues = GetDependentValues(45);
+            var maxDependentValues = GetDependentValues(60);
+            var minDependentValues = GetDependentValues(30);
+
             _parameters = new Dictionary<SpinnerParametersType, SpinnerParameter>()
             {
-                { SpinnerParametersType.Diameter, new SpinnerParameter(65, 30, 100) },
-                { SpinnerParametersType.Thickness, new SpinnerParameter(30, 10, 50) },
-                { SpinnerParametersType.Radius, new SpinnerParameter(40, 20, 60) },
-                { SpinnerParametersType.Length, new SpinnerParameter(162.5, 75, 250) },
-                { SpinnerParametersType.Width, new SpinnerParameter(186.875, 86.25, 287.5) },
+                { SpinnerParametersType.RadiusInnerRings, new SpinnerParameter(45, 30, 60) },
+                {
+                    SpinnerParametersType.Diameter,
+                    new SpinnerParameter(avgDependentValues[0], minDependentValues[0], maxDependentValues[0])
+                },
+                {
+                    SpinnerParametersType.Length,
+                    new SpinnerParameter(avgDependentValues[1], minDependentValues[1], maxDependentValues[1])
+                },
+                {
+                    SpinnerParametersType.RadiusOuterRings,
+                    new SpinnerParameter(avgDependentValues[2], minDependentValues[2], maxDependentValues[2])
+                },
+                { SpinnerParametersType.Thickness, new SpinnerParameter(20, 10, 30) },
+                { SpinnerParametersType.Rounding, new SpinnerParameter(1.25, 0.5, 2) },
             };
         }
 
         /// <summary>
         /// Sets parameter value.
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="value"></param>
+        /// <param name="type">Spinner parameter type.</param>
+        /// <param name="value">Parameter value.</param>
         public void SetParameterValue(SpinnerParametersType type, double value)
         {
-            if (!_parameters.TryGetValue(type, out var parameter)) return;
-
+            var parameter = _parameters[type];
             CheckDependencies(type, value);
             parameter.Value = value;
         }
@@ -49,11 +62,24 @@ namespace SpinnerPlugin.Model
         /// <exception cref="Exception">If parameter value does not exist.</exception>
         public double GetParameterValue(SpinnerParametersType type)
         {
-            if (_parameters.TryGetValue(type, out var parameter))
+            return _parameters[type].Value;
+        }
+
+
+        /// <summary>
+        /// Get Dependent Parameters.
+        /// </summary>
+        /// <param name="radiusInnerRings">Spinner RadiusInnerRings.</param>
+        /// <returns></returns>
+        public double[] GetDependentValues(double radiusInnerRings)
+        {
+            var dependentValues = new double[]
             {
-                return parameter.Value;
-            }
-            throw new Exception("Parameter does not exist");
+                Math.Round(radiusInnerRings * 0.7, 1),
+                Math.Round(radiusInnerRings * 1.5, 1),
+                Math.Round((radiusInnerRings + 10) / 2, 1),
+            };
+            return dependentValues;
         }
 
         /// <summary>
@@ -64,34 +90,35 @@ namespace SpinnerPlugin.Model
         /// <exception cref="Exception">If the parameter values ​​are set incorrectly.</exception>
         private void CheckDependencies(SpinnerParametersType type, double value)
         {
-            switch (type)
+            _parameters.TryGetValue(SpinnerParametersType.RadiusInnerRings, out var parameter);
+            var dependentValues = GetDependentValues(parameter.Value);
+
+            if (type == SpinnerParametersType.Diameter)
             {
-                case SpinnerParametersType.Length:
-                    {
-                        _parameters.TryGetValue(SpinnerParametersType.Diameter, out var parameter);
-                        if (value * 2.5 == parameter.Value)
-                        {
-                            throw new Exception(
-                                "Length depends on the diameter in the ratio (diameter * 2.5)");
-                        }
+                if (value != dependentValues[0])
+                {
+                    throw new ArgumentOutOfRangeException(
+                        "Diameter depends on the Radius Inner Rings in the ratio (RadiusInnerRings * 0.7)");
+                }
+            }
 
-                        break;
-                    }
-                case SpinnerParametersType.Width:
-                    {
-                        _parameters.TryGetValue(SpinnerParametersType.Length, out var parameter);
-                        if (value * 1.15 == parameter.Value)
-                        {
-                            throw new Exception(
-                                "Width depends on the length in the ratio (length * 1.15)");
+            if (type == SpinnerParametersType.Length)
+            {
+                if (value != dependentValues[1])
+                {
+                    throw new ArgumentOutOfRangeException(
+                        "Length depends on the Radius Inner Rings in the ratio (RadiusInnerRings * 1.5)");
 
-                        }
-                        break;
-                    }
-                default:
-                    {
-                        return;
-                    }
+                }
+            }
+
+            if (type == SpinnerParametersType.RadiusOuterRings)
+            {
+                if (value != dependentValues[2])
+                {
+                    throw new ArgumentOutOfRangeException(
+                        "Radius outer rings depends on the Radius Inner Rings in the ratio ( (RadiusInnerRings + 10) / 2)");
+                }
             }
         }
     }

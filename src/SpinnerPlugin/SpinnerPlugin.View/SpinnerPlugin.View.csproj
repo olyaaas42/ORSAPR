@@ -66,6 +66,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -85,6 +86,16 @@
       <Project>{2627155e-65d7-429d-9227-98a520dab299}</Project>
       <Name>SpinnerPlugin.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SpinnerPlugin.Wrapper\SpinnerPlugin.Wrapper.csproj">
+      <Project>{69c5eede-5087-4fc6-9b61-d23f5b476709}</Project>
+      <Name>SpinnerPlugin.Wrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Снимок.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Spinner.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

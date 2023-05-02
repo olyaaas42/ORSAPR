@@ -61,11 +61,32 @@ namespace SpinnerPlugin.View.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static string SpinnerPlugin_Model {
+        internal static System.Drawing.Bitmap Spinner {
             get {
-                return ResourceManager.GetString("SpinnerPlugin.Model", resourceCulture);
+                object obj = ResourceManager.GetObject("Spinner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Снимок {
+            get {
+                object obj = ResourceManager.GetObject("Снимок", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Снимок1 {
+            get {
+                object obj = ResourceManager.GetObject("Снимок1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

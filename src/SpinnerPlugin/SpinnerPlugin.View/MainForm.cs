@@ -3,116 +3,113 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using SpinnerPlugin.Model;
+using SpinnerPlugin.Wrapper;
 
 
 namespace SpinnerPlugin.View
 {
+    /// <summary>
+    /// Class for interacting with the form.
+    /// </summary>
     public partial class MainForm : Form
     {
         /// <summary>
         /// Spinner parameters.
         /// </summary>
-        private readonly SpinnerParameters Parameters;
+        private readonly SpinnerParameters _parameters;
 
         /// <summary>
         /// Stores a text field and its error.
         /// </summary>
-        private readonly Dictionary<TextBox, string> TextBoxAndError;
+        private readonly Dictionary<TextBox, string> _textBoxAndError;
 
         /// <summary>
         /// Stores a text field and its corresponding parameter type.
         /// </summary>
-        private readonly Dictionary<TextBox, SpinnerParametersType> TextBoxToParameterType;
+        private readonly Dictionary<TextBox, SpinnerParametersType> _textBoxToParameterType;
+
+        /// <summary>
+        /// Main form constructor.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
-            Parameters = new SpinnerParameters();
-            TextBoxToParameterType = new Dictionary<TextBox, SpinnerParametersType>
+            _parameters = new SpinnerParameters();
+            _textBoxToParameterType = new Dictionary<TextBox, SpinnerParametersType>
             {
+                { textBoxInnerRings, SpinnerParametersType.RadiusInnerRings },
                 { textBoxDiameter, SpinnerParametersType.Diameter },
-                { textBoxThickness, SpinnerParametersType.Thickness },
-                { textBoxRadius, SpinnerParametersType.Radius },
                 { textBoxLength, SpinnerParametersType.Length },
-                { textBoxWidth, SpinnerParametersType.Width }
+                { textBoxOuterRings, SpinnerParametersType.RadiusOuterRings },
+                { textBoxThickness, SpinnerParametersType.Thickness },
+                { textBoxRounding, SpinnerParametersType.Rounding },
             };
-            TextBoxAndError = new Dictionary<TextBox, string>
+            _textBoxAndError = new Dictionary<TextBox, string>
             {
+                { textBoxInnerRings, "" },
                 { textBoxDiameter, "" },
-                { textBoxThickness, "" },
-                { textBoxRadius, "" },
                 { textBoxLength, "" },
-                { textBoxWidth, "" }
+                { textBoxOuterRings, "" },
+                { textBoxThickness, "" },
+                { textBoxRounding, "" }
             };
         }
 
         /// <summary>
-        /// Sets default values ​​on form load.
+        /// Sets parameter value.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainForm_Load(object sender, EventArgs e)
+        private void SetParameter(object sender, EventArgs e)
         {
-            SetDefaultValues(60, 20, 40, 150, 172.5);
+            var textBox = sender as TextBox;
+            var isType = _textBoxToParameterType.TryGetValue(textBox, out var type);
+            var textValue = textBox.Text.Replace('.', ',');
+            double.TryParse(textValue, out var value);
+            value = Math.Round(value, 1);
+
+            if (!isType) return;
+
+            try
+            {
+                _parameters.SetParameterValue(type, value);
+                _textBoxAndError[textBox] = "";
+                errorProvider.Clear();
+            }
+            catch (ArgumentOutOfRangeException error)
+            {
+                _textBoxAndError[textBox] = error.ParamName;
+                errorProvider.SetError(textBox, error.ParamName);
+            }
         }
+
 
         /// <summary>
         /// Sets default values.
         /// </summary>
         /// <param name="diameterValue">Spinner diameter.</param>
         /// <param name="thicknessValue">Spinner thickness.</param>
-        /// <param name="radiusValue">Spinner radius.</param>
+        /// <param name="radiusInnerRingsValue">Spinner radius.</param>
         /// <param name="lengthValue">Spinner length.</param>
-        /// <param name="widthValue">Spinner width.</param>
-        private void SetDefaultValues(double diameterValue,
-            double thicknessValue, double radiusValue, double lengthValue, double widthValue)
+        /// <param name="radiusOuterRingsValue">Spinner radius outer rings.</param>
+        /// <param name="roundingValue">Spinner rounding.</param>
+        private void SetParameters(double radiusInnerRingsValue, double diameterValue, 
+            double lengthValue, double radiusOuterRingsValue, double thicknessValue, double roundingValue)
         {
-            Parameters.SetParameterValue(SpinnerParametersType.Diameter, diameterValue);
-            Parameters.SetParameterValue(SpinnerParametersType.Thickness, thicknessValue);
-            Parameters.SetParameterValue(SpinnerParametersType.Radius, radiusValue);
-            Parameters.SetParameterValue(SpinnerParametersType.Length, lengthValue);
-            Parameters.SetParameterValue(SpinnerParametersType.Width, widthValue);
+            _parameters.SetParameterValue(SpinnerParametersType.RadiusInnerRings, radiusInnerRingsValue);
+            _parameters.SetParameterValue(SpinnerParametersType.Diameter, diameterValue);
+            _parameters.SetParameterValue(SpinnerParametersType.Length, lengthValue);
+            _parameters.SetParameterValue(SpinnerParametersType.RadiusOuterRings, radiusOuterRingsValue);
+            _parameters.SetParameterValue(SpinnerParametersType.Thickness, thicknessValue);
+            _parameters.SetParameterValue(SpinnerParametersType.Rounding, roundingValue);
 
+            textBoxInnerRings.Text = radiusInnerRingsValue.ToString();
             textBoxDiameter.Text = diameterValue.ToString();
-            textBoxThickness.Text = thicknessValue.ToString();
-            textBoxRadius.Text = radiusValue.ToString();
             textBoxLength.Text = lengthValue.ToString();
-            textBoxWidth.Text = widthValue.ToString();
+            textBoxOuterRings.Text = radiusOuterRingsValue.ToString();
+            textBoxThickness.Text = thicknessValue.ToString();
+            textBoxRounding.Text = roundingValue.ToString();
         }
-
-        /// <summary>
-        /// Sets the minimum parameters of the mug.
-        /// </summary>
-        private void SetMinimumParameters(object sender, MouseEventArgs e)
-        {
-            SetDefaultValues(30, 10, 20, 75, 86.25);
-        }
-
-        /// <summary>
-        /// Sets the average parameters of the mug.
-        /// </summary>
-        private void SetAvgareParameters(object sender, EventArgs e)
-        {
-            SetDefaultValues(65, 30, 40, 162.5, 186.875);
-        }
-
-        /// <summary>
-        ///  Sets the maximum parameters for the mug.
-        /// </summary>
-        private void SetMaximumParameters(object sender, EventArgs e)
-        {
-            SetDefaultValues(100, 50, 60, 250, 287.5);
-        }
-
-        /// <summary>
-        /// Clears a text field.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ClearTextBox(object sender, MouseEventArgs e)
-        {
-            ((TextBox)sender).Text = "";
-        }
-
 
         /// <summary>
         /// Checks if all text fields are filled correctly.
@@ -122,7 +119,7 @@ namespace SpinnerPlugin.View
         {
             var isError = true;
             foreach (var item in
-                     TextBoxAndError.Where(item => item.Value != ""))
+                     _textBoxAndError.Where(item => item.Value != ""))
             {
                 isError = false;
                 errorProvider.SetError(item.Key, item.Value);
@@ -131,33 +128,72 @@ namespace SpinnerPlugin.View
             return isError;
         }
 
-        private void buttonBuild_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Build spinner in Kompas 3D.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Build(object sender, EventArgs e)
         {
             if (CheckTextBoxes())
             {
-                // Call build method
+                var builder = new SpinnerBuilder();
+                builder.BuildSpinner(_parameters);
             }
             else
             {
-                MessageBox.Show(@"Fill all required parameters correctly");
+                MessageBox.Show(@"Fill all required parameters correctly",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void textBoxDiameter_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        /// <summary>
+        /// Set default spinner parameters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetDefaultParameters(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(textBoxDiameter.Text))
-            {
-                errorProvider.SetError(textBoxDiameter, "Не указано число!");
-            }
-            else if (textBoxDiameter.Text.Length < 30 || textBoxDiameter.Text.Length > 100)
-            {
-                errorProvider.SetError(textBoxDiameter, "The value must be between 30 and 100");
+            var buttonName = (sender as Button)?.Name;
 
-            }
-            else
+            switch (buttonName)
             {
-                errorProvider.Clear();
+                case "buttonMimimum":
+                    {
+                        var dependentValues = _parameters.GetDependentValues(30);
+                        SetParameters(30, dependentValues[0], dependentValues[1], dependentValues[2], 10, 0.5);
+                        break;
+                    }
+                case "buttonAverage":
+                    {
+                        var dependentValues = _parameters.GetDependentValues(45);
+                        SetParameters(45, dependentValues[0], dependentValues[1], dependentValues[2], 20, 1.25);
+                        break;
+                    }
+                case "buttonMaximum":
+                    {
+                        var dependentValues = _parameters.GetDependentValues(60);
+                        SetParameters(60, dependentValues[0], dependentValues[1], dependentValues[2], 30, 2);
+                        break;
+                    }
+                default:
+                    {
+                        var dependentValues = _parameters.GetDependentValues(45);
+                        SetParameters(45, dependentValues[0], dependentValues[1], dependentValues[2], 20, 1.25);
+                        break;
+                    }
             }
+        }
+
+        /// <summary>
+        /// Clear text field.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearField(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            textBox.Text = "";
         }
     }
 }
