@@ -12,11 +12,13 @@ namespace SpinnerPlugin.UnitTests
         [Test(Description = "Positive getter test.")]
         public void TestValueGet_CorrectValue()
         {
+            //Arrange
             const double expected = 20;
 
-            var spinnerParameter = new SpinnerParameter(12, MIN_VALUE, MAX_VALUE);
+            var spinnerParameter = new SpinnerParameter(20, MIN_VALUE, MAX_VALUE);
             var actual = spinnerParameter.Value;
 
+            //Assert & Act
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -26,12 +28,14 @@ namespace SpinnerPlugin.UnitTests
         {
             const double value = 5;
 
+            //Assert.Throws - метод. Вместо сравнения значений он пытается вызвать фрагмент кода, представленный в виде делегата,
+            //чтобы убедиться, что он генерирует определенное исключение.
             var actual = Assert.Throws<System.ArgumentOutOfRangeException>(() => new SpinnerParameter(value, MIN_VALUE, MAX_VALUE));
             var expected = $"Value must be between {MIN_VALUE} and {MAX_VALUE}";
 
+            //Is.EqualTo - Возвращает ограничение, которое проверяет два элемента на равенство.
             Assert.That(actual?.ParamName, Is.EqualTo(expected));
         }
-
 
 
         [Test(Description = "Negative getter test. Value bigger then maxValue")]

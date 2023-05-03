@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using SpinnerPlugin.Model;
-using Newtonsoft.Json.Linq;
 
 namespace SpinnerPlugin.UnitTests
 {
@@ -9,7 +8,7 @@ namespace SpinnerPlugin.UnitTests
     public class SpinnerParametersTest
     {
         /// <summary>
-        /// Mug parameters.
+        /// Spinner parameters.
         /// </summary>
         private readonly SpinnerParameters _parameters = new SpinnerParameters();
 

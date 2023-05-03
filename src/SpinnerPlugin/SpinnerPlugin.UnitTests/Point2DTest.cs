@@ -15,7 +15,8 @@ namespace SpinnerPlugin.UnitTests
             var point2D = new Point2D(expected, 20);
             var actual = point2D.X;
 
-            Assert.That(actual, Is.EqualTo(expected));
+           //Assert.That() выдает исключение +выдает подробное сообщение о том, что было не так.
+           Assert.That(actual, Is.EqualTo(expected));
         }
 
 
