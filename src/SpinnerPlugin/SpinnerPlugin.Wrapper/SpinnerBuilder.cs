@@ -26,7 +26,7 @@ namespace SpinnerPlugin.Wrapper
             _wrapper.CreateDocument();
             _wrapper.SetProperties();
 
-            var spinnerInnerRings = spinnerParameters.GetParameterValue(SpinnerParametersType.RadiusInnerRings) / 2;
+            var spinnerInnerRings = spinnerParameters.GetParameterValue(SpinnerParametersType.DiameterInnerRings) / 2;
             var spinnerDiameter = spinnerParameters.GetParameterValue(SpinnerParametersType.Diameter) / 2;
             var spinnerLenght = spinnerParameters.GetParameterValue(SpinnerParametersType.Length);
             var spinnerOuterRings = spinnerParameters.GetParameterValue(SpinnerParametersType.RadiusOuterRings);

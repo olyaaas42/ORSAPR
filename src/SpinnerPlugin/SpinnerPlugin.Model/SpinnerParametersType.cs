@@ -12,12 +12,12 @@ namespace SpinnerPlugin.Model
     public enum SpinnerParametersType
     {
         /// <summary>
-        /// Spinner radius.
+        /// Spinner Diameter Inner Rings.
         /// </summary>
-        RadiusInnerRings,
+        DiameterInnerRings,
 
         /// <summary>
-        /// Spinner ring diameter.
+        /// Spinner center ring diameter.
         /// </summary>
         Diameter,
 
@@ -27,7 +27,7 @@ namespace SpinnerPlugin.Model
         Length,
 
         /// <summary>
-        /// Spinner width.
+        /// Spinner Radius Outer Rings.
         /// </summary>
         RadiusOuterRings,
 

@@ -24,7 +24,7 @@ namespace SpinnerPlugin.Model
 
             _parameters = new Dictionary<SpinnerParametersType, SpinnerParameter>()
             {
-                { SpinnerParametersType.RadiusInnerRings, new SpinnerParameter(45, 30, 60) },
+                { SpinnerParametersType.DiameterInnerRings, new SpinnerParameter(45, 30, 60) },
                 {
                     SpinnerParametersType.Diameter,
                     new SpinnerParameter(avgDependentValues[0], minDependentValues[0], maxDependentValues[0])
@@ -69,15 +69,15 @@ namespace SpinnerPlugin.Model
         /// <summary>
         /// Get Dependent Parameters.
         /// </summary>
-        /// <param name="radiusInnerRings">Spinner RadiusInnerRings.</param>
+        /// <param name="diameterInnerRings">Spinner RadiusInnerRings.</param>
         /// <returns></returns>
-        public double[] GetDependentValues(double radiusInnerRings)
+        public double[] GetDependentValues(double diameterInnerRings)
         {
             var dependentValues = new double[]
             {
-                Math.Round(radiusInnerRings * 0.7, 1),
-                Math.Round(radiusInnerRings * 1.5, 1),
-                Math.Round((radiusInnerRings + 10) / 2, 1),
+                Math.Round(diameterInnerRings * 0.7, 1),
+                Math.Round(diameterInnerRings * 1.5, 1),
+                Math.Round((diameterInnerRings + 10) / 2, 1),
             };
             return dependentValues;
         }
@@ -90,7 +90,7 @@ namespace SpinnerPlugin.Model
         /// <exception cref="Exception">If the parameter values ​​are set incorrectly.</exception>
         private void CheckDependencies(SpinnerParametersType type, double value)
         {
-            _parameters.TryGetValue(SpinnerParametersType.RadiusInnerRings, out var parameter);
+            _parameters.TryGetValue(SpinnerParametersType.DiameterInnerRings, out var parameter);
             var dependentValues = GetDependentValues(parameter.Value);
 
             if (type == SpinnerParametersType.Diameter)
@@ -98,7 +98,7 @@ namespace SpinnerPlugin.Model
                 if (value != dependentValues[0])
                 {
                     throw new ArgumentOutOfRangeException(
-                        "Diameter depends on the Radius Inner Rings in the ratio (RadiusInnerRings * 0.7)");
+                        "Diameter depends on the Diameter Inner Rings in the ratio (DiameterInnerRings * 0.7)");
                 }
             }
 
@@ -107,7 +107,7 @@ namespace SpinnerPlugin.Model
                 if (value != dependentValues[1])
                 {
                     throw new ArgumentOutOfRangeException(
-                        "Length depends on the Radius Inner Rings in the ratio (RadiusInnerRings * 1.5)");
+                        "Length depends on the Diameter Inner Rings in the ratio (DiameterInnerRings * 1.5)");
 
                 }
             }
@@ -117,7 +117,7 @@ namespace SpinnerPlugin.Model
                 if (value != dependentValues[2])
                 {
                     throw new ArgumentOutOfRangeException(
-                        "Radius outer rings depends on the Radius Inner Rings in the ratio ( (RadiusInnerRings + 10) / 2)");
+                        "Radius outer rings depends on the Diameter Inner Rings in the ratio ( (DiameterInnerRings + 10) / 2)");
                 }
             }
         }

@@ -17,11 +17,11 @@ namespace SpinnerPlugin.UnitTests
         {
             var expectedDiameter = _parameters.GetParameterValue(SpinnerParametersType.Diameter);
             var expectedLength = _parameters.GetParameterValue(SpinnerParametersType.Length);
-            var expectedRadiusInnerRings = _parameters.GetParameterValue(SpinnerParametersType.RadiusInnerRings);
+            var expectedInnerRings = _parameters.GetParameterValue(SpinnerParametersType.DiameterInnerRings);
 
             _parameters.SetParameterValue(SpinnerParametersType.Diameter, expectedDiameter);
             _parameters.SetParameterValue(SpinnerParametersType.Length, expectedLength);
-            _parameters.SetParameterValue(SpinnerParametersType.RadiusInnerRings, expectedRadiusInnerRings);
+            _parameters.SetParameterValue(SpinnerParametersType.DiameterInnerRings, expectedInnerRings);
 
             Assert.Multiple(() =>
             {
@@ -29,8 +29,8 @@ namespace SpinnerPlugin.UnitTests
                     Is.EqualTo(expectedDiameter));
                 Assert.That(_parameters.GetParameterValue(SpinnerParametersType.Length),
                     Is.EqualTo(expectedLength));
-                Assert.That(_parameters.GetParameterValue(SpinnerParametersType.RadiusInnerRings),
-                    Is.EqualTo(expectedRadiusInnerRings));
+                Assert.That(_parameters.GetParameterValue(SpinnerParametersType.DiameterInnerRings),
+                    Is.EqualTo(expectedInnerRings));
             });
         }
 
@@ -41,15 +41,15 @@ namespace SpinnerPlugin.UnitTests
                 _parameters.SetParameterValue(SpinnerParametersType.Diameter, 20));
             var actualLengthException = Assert.Throws<System.ArgumentOutOfRangeException>(() =>
                 _parameters.SetParameterValue(SpinnerParametersType.Length, 20));
-            var actualRadiusInnerRingsException = Assert.Throws<System.ArgumentOutOfRangeException>(() =>
-                _parameters.SetParameterValue(SpinnerParametersType.RadiusInnerRings, 20));
+            var actualInnerRingsException = Assert.Throws<System.ArgumentOutOfRangeException>(() =>
+                _parameters.SetParameterValue(SpinnerParametersType.DiameterInnerRings, 20));
 
 
             Assert.Multiple(() =>
             {
                 Assert.That(actualDiameterException?.GetType(), Is.EqualTo(typeof(System.ArgumentOutOfRangeException)));
                 Assert.That(actualLengthException?.GetType(), Is.EqualTo(typeof(System.ArgumentOutOfRangeException)));
-                Assert.That(actualRadiusInnerRingsException?.GetType(), Is.EqualTo(typeof(System.ArgumentOutOfRangeException)));
+                Assert.That(actualInnerRingsException?.GetType(), Is.EqualTo(typeof(System.ArgumentOutOfRangeException)));
             });
         }
     }

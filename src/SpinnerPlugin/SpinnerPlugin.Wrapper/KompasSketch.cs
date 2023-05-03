@@ -94,11 +94,26 @@ namespace SpinnerPlugin.Wrapper
             _document2D.ksLineSeg(start.X, start.Y, end.X, end.Y, style);
         }
 
+        /// <summary>
+        /// Creates an arc by three points on the sketch
+        /// </summary>
+        /// <param name="start">Start coordinates.</param>
+        /// <param name="st1">Avrage coordinates.</param>
+        /// <param name="st2">End coordinates</param>
         public void CreateArcBy3Points(Point2D start, Point2D st1, Point2D st2)
         {
             _document2D.ksArcBy3Points(start.X, start.Y, st1.X, st1.Y, st2.X, st2.Y, 1);
         }
 
+
+        /// <summary>
+        /// Creates an arc at the center and endpoints on sketch
+        /// </summary>
+        /// <param name="start">Center coordinates.</param>
+        /// <param name="radius">Center coordinates.</param>
+        /// <param name="st1">Coordinates of the first endpoint</param>
+        /// <param name="st2">Coordinates of the second end point</param>
+        /// <param name="direction">Direction an arc</param>
         public void CreateArcByPoint(Point2D start, double radius, Point2D st1, Point2D st2, short direction)
         {
             _document2D.ksArcByPoint(start.X, start.Y, radius, st1.X, st1.Y, st2.X, st2.Y, direction, 1);

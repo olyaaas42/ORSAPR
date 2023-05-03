@@ -37,7 +37,7 @@ namespace SpinnerPlugin.View
             _parameters = new SpinnerParameters();
             _textBoxToParameterType = new Dictionary<TextBox, SpinnerParametersType>
             {
-                { textBoxInnerRings, SpinnerParametersType.RadiusInnerRings },
+                { textBoxInnerRings, SpinnerParametersType.DiameterInnerRings },
                 { textBoxDiameter, SpinnerParametersType.Diameter },
                 { textBoxLength, SpinnerParametersType.Length },
                 { textBoxOuterRings, SpinnerParametersType.RadiusOuterRings },
@@ -96,7 +96,7 @@ namespace SpinnerPlugin.View
         private void SetParameters(double radiusInnerRingsValue, double diameterValue, 
             double lengthValue, double radiusOuterRingsValue, double thicknessValue, double roundingValue)
         {
-            _parameters.SetParameterValue(SpinnerParametersType.RadiusInnerRings, radiusInnerRingsValue);
+            _parameters.SetParameterValue(SpinnerParametersType.DiameterInnerRings, radiusInnerRingsValue);
             _parameters.SetParameterValue(SpinnerParametersType.Diameter, diameterValue);
             _parameters.SetParameterValue(SpinnerParametersType.Length, lengthValue);
             _parameters.SetParameterValue(SpinnerParametersType.RadiusOuterRings, radiusOuterRingsValue);
